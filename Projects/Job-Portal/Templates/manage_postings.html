@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage Job Postings - DKTE Placements</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+    }
+    header {
+      background: #3546ab;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #3546ab;
+      margin-bottom: 20px;
+    }
+    form .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      background: #3546ab;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #2c3e50;
+    }
+    .back-button {
+      background: #e63946;
+      margin-top: 20px;
+    }
+    .back-button:hover {
+      background: #c71f32;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>Manage Job Postings</header>
+
+<div class="container">
+  <h2>Post a New Job</h2>
+  <form id="jobForm">
+    <div class="form-group">
+      <label for="title">Job Title:</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Job Description:</label>
+      <textarea id="description" name="description" rows="5" required></textarea>
+    </div>
+
+    <button type="submit">Post Job</button>
+  </form>
+
+  <button class="back-button" onclick="window.location.href='recruiter.html'">Back to Dashboard</button>
+</div>
+
+<script>
+  document.getElementById('jobForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Job posted successfully!');
+    // Here you can add firebase/firestore code to actually save job data
+    document.getElementById('jobForm').reset();
+  });
+</script>
+
+</body>
+</html>

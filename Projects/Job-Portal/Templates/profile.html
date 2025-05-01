@@ -1,0 +1,120 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Profile - DKTE Placements</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+    }
+    header {
+      background: #3546ab;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .profile-field {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .empty-message {
+      text-align: center;
+      font-size: 20px;
+      color: gray;
+      margin-bottom: 20px;
+    }
+    .edit-button, .dashboard-button {
+      display: inline-block;
+      background: #3546ab;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 10px 5px;
+      transition: background 0.3s;
+    }
+    .edit-button:hover, .dashboard-button:hover {
+      background: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+<header>Student Profile</header>
+
+<div class="container" id="profileContainer">
+  <div class="empty-message" id="emptyMessage">No profile information yet.</div>
+  
+  <div class="profile-field" id="nameField"></div>
+  <div class="profile-field" id="emailField"></div>
+  <div class="profile-field" id="phoneField"></div>
+  <div class="profile-field" id="skillsField"></div>
+  <div class="profile-field" id="resumeField"></div>
+
+  <a href="edit_profile.html" class="edit-button">Edit Profile</a>
+  <a href="student_dashboard.html" class="dashboard-button">Back to Dashboard</a>
+</div>
+
+<!-- Firebase Libraries -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDKbEyYO43oYfjmvIYsy9JkdaPte_8IxrE",
+            authDomain: "job-portal-e54bf.firebaseapp.com",
+            projectId: "job-portal-e54bf",
+            storageBucket: "job-portal-e54bf.appspot.com",
+            messagingSenderId: "621351469708",
+            appId: "1:621351469708:web:6c2238035ae090a951f1a9",
+            measurementId: "G-60QEXBN579"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // You should actually fetch the currently signed-in user's email
+  // For demo, using a static email
+  const userEmail = localStorage.getItem('studentEmail') || "demo@example.com";
+
+  db.collection("students").doc(userEmail).get()
+    .then((doc) => {
+      if (doc.exists) {
+        document.getElementById('emptyMessage').style.display = "none";
+
+        const data = doc.data();
+        document.getElementById('nameField').innerHTML = `<strong>Name:</strong> ${data.name}`;
+        document.getElementById('emailField').innerHTML = `<strong>Email:</strong> ${data.email}`;
+        document.getElementById('phoneField').innerHTML = `<strong>Phone:</strong> ${data.phone}`;
+        document.getElementById('skillsField').innerHTML = `<strong>Skills:</strong> ${data.skills}`;
+        document.getElementById('resumeField').innerHTML = `<strong>Resume:</strong> <a href="${data.resumeLink}" target="_blank">View Resume</a>`;
+      } else {
+        // no profile
+        console.log("No profile data");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching profile:", error);
+    });
+</script>
+
+</body>
+</html>

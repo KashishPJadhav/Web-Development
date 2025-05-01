@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>View Applications - DKTE Placements</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+    }
+    header {
+      background: #3546ab;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #3546ab;
+      margin-bottom: 30px;
+    }
+    .application-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .application-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .applicant-name {
+      font-size: 20px;
+      color: #3546ab;
+      margin-bottom: 8px;
+    }
+    .details {
+      font-size: 14px;
+      color: #666;
+    }
+    .back-button {
+      background: #e63946;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      display: block;
+      margin: 40px auto 0;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .back-button:hover {
+      background: #c71f32;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>View Applications</header>
+
+<div class="container">
+
+  <h2>Applications Received</h2>
+
+  <!-- Sample Application Card -->
+  <div class="application-card">
+    <div class="applicant-name">Kashish Pradeep Jadhav</div>
+    <div class="details">
+      📄 Resume: <a href="#" target="_blank">View Resume</a><br>
+      ✉️ Email: kashish@example.com<br>
+      🎯 Applied for: Software Engineer - Intern<br>
+    </div>
+  </div>
+
+  <div class="application-card">
+    <div class="applicant-name">Rahul Sharma</div>
+    <div class="details">
+      📄 Resume: <a href="#" target="_blank">View Resume</a><br>
+      ✉️ Email: rahul@example.com<br>
+      🎯 Applied for: Data Analyst Intern<br>
+    </div>
+  </div>
+
+  <button class="back-button" onclick="window.location.href='recruiter.html'">Back to Dashboard</button>
+
+</div>
+
+</body>
+</html>

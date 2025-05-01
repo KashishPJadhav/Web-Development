@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job Openings - DKTE Placements</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+    }
+    header {
+      background: #3546ab;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    .section-title {
+      font-size: 24px;
+      color: #3546ab;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .job-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .job-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .job-title {
+      font-size: 20px;
+      color: #3546ab;
+      margin-bottom: 5px;
+    }
+    .job-company, .job-location {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .apply-button {
+      background: #3546ab;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .apply-button:hover {
+      background: #2c3e50;
+    }
+    .back-button {
+      background: #e63946;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      display: block;
+      margin: 40px auto 0;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .back-button:hover {
+      background: #c71f32;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>Job Openings - DKTE Placements</header>
+
+<div class="container">
+
+  <div class="section-title">Available Job Openings</div>
+
+  <div id="jobCards"></div>
+
+  <button class="back-button" onclick="window.location.href='student_dashboard.html'">Back to Dashboard</button>
+
+</div>
+
+<script>
+  const jobData = [
+    {
+      title: "Software Engineer - Intern",
+      company: "Infosys Ltd.",
+      location: "Pune, India",
+      link: "https://careers.infosys.com"
+    },
+    {
+      title: "Data Analyst",
+      company: "TCS",
+      location: "Mumbai, India",
+      link: "https://www.tcs.com/careers"
+    },
+    {
+      title: "AI/ML Engineer",
+      company: "Wipro Technologies",
+      location: "Bangalore, India",
+      link: "https://careers.wipro.com"
+    }
+  ];
+
+  const jobCardsContainer = document.getElementById('jobCards');
+
+  jobData.forEach(job => {
+    const jobCard = document.createElement('div');
+    jobCard.className = 'job-card';
+    jobCard.innerHTML = `
+      <div class="job-title">${job.title}</div>
+      <div class="job-company">🏢 ${job.company}</div>
+      <div class="job-location">📍 ${job.location}</div>
+      <a class="apply-button" href="${job.link}" target="_blank">Apply Now</a>
+    `;
+    jobCardsContainer.appendChild(jobCard);
+  });
+</script>
+
+</body>
+</html>
