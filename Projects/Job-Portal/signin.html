@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DKTE Placements - Sign In</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+    .left-panel {
+      background-color: #3546ab;
+      color: white;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .left-panel img {
+      max-width: 220px;
+      margin-bottom: 20px;
+    }
+    .left-panel h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .left-panel p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .right-panel {
+      flex: 2;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      text-align: center;
+      color: #3546ab;
+    }
+    .tabs {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .tabs button {
+      background-color: #3546ab;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 3px;
+      margin: 0 5px;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+    .tabs button.active {
+      background-color: #1f2a8a; /* darker */
+      opacity: 1;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      padding: 5px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group input:focus {
+      border-color: #3546ab;
+      outline: none;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .buttons a {
+      font-size: 14px;
+      text-decoration: none;
+      color: #3546ab;
+    }
+    .buttons a:hover {
+      text-decoration: underline;
+    }
+    .buttons button[type="submit"] {
+      background-color: #3546ab;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script> 
+</head>
+
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWPjhJ83dzE3RJupu2GV1BmGVnR4zbPnaSJg&s" alt="DKTE Logo">
+      <h1>DKTE Placements</h1>
+      <p>One stop portal for students & companies for placements.</p>
+    </div>
+
+    <div class="right-panel">
+      <div class="form-container">
+        <h2>Sign In</h2>
+        <div class="tabs">
+          <button id="studentBtn" onclick="setRole('student')">Student</button>
+          <button id="recruiterBtn" onclick="setRole('recruiter')">Recruiter</button>
+          <button id="companyBtn" onclick="setRole('company')">Company</button>
+          <button id="verifierBtn" onclick="setRole('verifier')">Verifier</button>
+        </div>
+        <form id="signinForm">
+          <div class="form-group">
+            <label for="idInput">ID:</label>
+            <input type="text" id="idInput" name="idInput" placeholder="Enter your ID" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          </div>
+          <div class="buttons">
+            <button type="submit">Sign In</button>
+            <a href="register.html">Create Account</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDKbEyYO43oYfjmvIYsy9JkdaPte_8IxrE",
+      authDomain: "job-portal-e54bf.firebaseapp.com",
+      projectId: "job-portal-e54bf",
+      storageBucket: "job-portal-e54bf.appspot.com",
+      messagingSenderId: "621351469708",
+      appId: "1:621351469708:web:6c2238035ae090a951f1a9",
+      measurementId: "G-60QEXBN579"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    let selectedRole = 'student'; // default
+
+    function setRole(role) {
+      selectedRole = role;
+      const idLabel = document.querySelector('label[for="idInput"]');
+      const idInput = document.getElementById('idInput');
+
+      idLabel.textContent = role.charAt(0).toUpperCase() + role.slice(1) + ' ID:';
+      idInput.placeholder = `Enter your ${role} ID`;
+
+      // Button highlighting
+      document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(role + 'Btn').classList.add('active');
+    }
+
+    // Initially highlight student
+    window.onload = () => {
+      setRole('student');
+    };
+
+    document.getElementById('signinForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const idInput = document.getElementById('idInput').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!idInput || !password) {
+        alert('Please fill all fields');
+        return;
+      }
+
+      try {
+        const userRef = db.collection('users').doc(selectedRole).collection('accounts').doc(idInput);
+        const docSnap = await userRef.get();
+
+        if (!docSnap.exists) {
+          alert('User not found!');
+        } else {
+          const userData = docSnap.data();
+          if (userData.password === password) {
+            alert('Sign in successful!');
+            if (selectedRole === 'student') {
+              window.location.href = "student_dashboard.html";
+            } else {
+              window.location.href = selectedRole + ".html";
+            }
+          } else {
+            alert('Incorrect password!');
+          }
+        }
+      } catch (error) {
+        console.error('Error during sign in:', error);
+        alert('Sign in failed. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
